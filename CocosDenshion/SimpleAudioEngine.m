@@ -125,13 +125,14 @@ static CDBufferManager *bufferManager = nil;
 
 -(ALuint) playEffect:(NSString*) filePath
 {
-	return [self playEffect:filePath pitch:1.0f pan:0.0f gain:1.0f];
+	return [self playEffect:filePath pitch:1.0f pan:0.0f gain:1.0f durationInSeconds:nil];
 }
 
--(ALuint) playEffect:(NSString*) filePath pitch:(Float32) pitch pan:(Float32) pan gain:(Float32) gain
-{
+- (ALuint)playEffect:(NSString *)filePath pitch:(Float32)pitch pan:(Float32)pan gain:(Float32)gain durationInSeconds:(float *)durationInSeconds {
 	int soundId = [bufferManager bufferForFile:filePath create:YES];
 	if (soundId != kCDNoBuffer) {
+		if(durationInSeconds != nil)
+			(*durationInSeconds) = [soundEngine bufferDurationInSeconds:soundId];
 		return [soundEngine playSound:soundId sourceGroupId:0 pitch:pitch pan:pan gain:gain loop:false];
 	} else {
 		return CD_MUTE;
