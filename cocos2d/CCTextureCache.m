@@ -91,8 +91,8 @@ static CCTextureCache *sharedTextureCache;
 
 #ifdef __CC_PLATFORM_IOS
 		_auxGLcontext = [[EAGLContext alloc]
-						 initWithAPI:kEAGLRenderingAPIOpenGLES2
-						 sharegroup:[[view context] sharegroup]];
+				initWithAPI:kEAGLRenderingAPIOpenGLES2
+				 sharegroup:[[view context] sharegroup]];
 
 #elif defined(__CC_PLATFORM_MAC)
 		NSOpenGLPixelFormat *pf = [view pixelFormat];
@@ -114,11 +114,11 @@ static CCTextureCache *sharedTextureCache;
 	__block NSString *desc = nil;
 	dispatch_sync(_dictQueue, ^{
 		desc = [NSString stringWithFormat:@"<%@ = %p | num of textures =  %lu | keys: %@>",
-			[self class],
-			self,
-			(unsigned long)[_textures count],
-			[_textures allKeys]
-			];
+										  [self class],
+										  self,
+										  (unsigned long)[_textures count],
+										  [_textures allKeys]
+		];
 	});
 	return desc;
 }
@@ -153,7 +153,7 @@ static CCTextureCache *sharedTextureCache;
 
 	// optimization
 	__block CCTexture2D * tex;
-		
+
 	dispatch_sync(_dictQueue, ^{
 		tex = [_textures objectForKey:path];
 	});
@@ -298,8 +298,12 @@ static CCTextureCache *sharedTextureCache;
 #ifdef __CC_PLATFORM_IOS
 
 		else {
-
-			UIImage *image = [[UIImage alloc] initWithContentsOfFile:fullpath];
+			UIImage *image = nil;
+			if([lowerCase hasSuffix:@".webp"]) {
+				image = [[UIImage imageWithWebPAtPath:fullpath] retain];
+			} else {
+				image = [[UIImage alloc] initWithContentsOfFile:fullpath];
+			}
 			tex = [[CCTexture2D alloc] initWithCGImage:image.CGImage resolutionType:resolution];
 			[image release];
 
@@ -445,7 +449,7 @@ static CCTextureCache *sharedTextureCache;
 	path = [fileUtils standarizePath:path];
 
 	__block CCTexture2D * tex;
-	
+
 	dispatch_sync(_dictQueue, ^{
 		tex = [_textures objectForKey:path];
 	});
@@ -485,13 +489,13 @@ static CCTextureCache *sharedTextureCache;
 			totalBytes += bytes;
 			count++;
 			NSLog( @"cocos2d: \"%@\"\trc=%lu\tid=%lu\t%lu x %lu\t@ %ld bpp =>\t%lu KB",
-				  texKey,
-				  (long)[tex retainCount],
-				  (long)tex.name,
-				  (long)tex.pixelsWide,
-				  (long)tex.pixelsHigh,
-				  (long)bpp,
-				  (long)bytes / 1024 );
+					texKey,
+					(long)[tex retainCount],
+					(long)tex.name,
+					(long)tex.pixelsWide,
+					(long)tex.pixelsHigh,
+					(long)bpp,
+					(long)bytes / 1024 );
 		}
 	});
 	NSLog( @"cocos2d: CCTextureCache dumpDebugInfo:\t%ld textures,\tfor %lu KB (%.2f MB)", (long)count, (long)totalBytes / 1024, totalBytes / (1024.0f*1024.0f));
