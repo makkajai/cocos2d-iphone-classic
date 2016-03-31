@@ -61,6 +61,8 @@ enum {
 
 	kCCDeviceMac,
 	kCCDeviceMacRetinaDisplay,
+	kCCDeviceiPhone6,
+	kCCDeviceiPhone6HD
 };
 
 /**

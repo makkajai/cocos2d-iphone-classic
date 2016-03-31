@@ -56,18 +56,18 @@ enum {
 	NSMutableDictionary *_fullPathCache;
 	NSMutableDictionary *_fullPathNoResolutionsCache;
 	NSMutableDictionary *_removeSuffixCache;
-	
+
 	NSMutableDictionary	*_directoriesDict;
 	NSMutableDictionary	*_suffixesDict;
-	
+
 	NSMutableDictionary	*_filenameLookup;
-	
+
 	NSMutableArray		*_searchResolutionsOrder;
 	NSMutableArray		*_searchPath;
-	
+
 	// it could be suffix (default) or directory
 	int					_searchMode;
-	
+
 	BOOL				_enableiPhoneResourcesOniPad;
 }
 
@@ -179,6 +179,14 @@ enum {
  @since v1.1
  */
 -(void) setiPhoneRetinaDisplaySuffix:(NSString*)iPhoneRetinaDisplaySuffix;
+
+- (void)setiPhone5DisplaySuffix:(NSString *)suffix;
+
+- (void)setiPhone5RetinaDisplaySuffix:(NSString *)suffix;
+
+-(void) setiPhone6Suffix:(NSString *)suffix;
+
+-(void) setiPhone6HDSuffix:(NSString *)suffix;
 
 /** The iPad suffixes to load resources.
  By default it is "-ipad", "-hd", "", in that order.
@@ -388,7 +396,7 @@ extern "C" {
  @since v0.99.5
  */
 NSInteger ccLoadFileIntoMemory(const char *filename, unsigned char **out);
-	
+
 #ifdef __cplusplus
 }
 #endif

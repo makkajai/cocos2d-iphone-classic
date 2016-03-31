@@ -339,6 +339,10 @@ typedef enum
 	kCCResolutioniPad,
 	//! iPad Retina Display resolution type
 	kCCResolutioniPadRetinaDisplay,
+
+	kCCResolutioniPhone6,
+
+	kCCResolutioniPhone6HD,
 	
 #elif defined(__CC_PLATFORM_MAC)
 	//! Mac resolution type
