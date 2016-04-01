@@ -424,10 +424,12 @@
 
 #elif __CC_PLATFORM_IOS
 	// Option 3: Orphaning + glMapBuffer
-	glBufferData(GL_ARRAY_BUFFER, sizeof(_quads[0])*_totalParticles, nil, GL_STREAM_DRAW);
+/*	glBufferData(GL_ARRAY_BUFFER, sizeof(_quads[0])*_totalParticles, nil, GL_STREAM_DRAW);
 	void *buf = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	memcpy(buf, _quads, sizeof(_quads[0])*_particleCount);
-	glUnmapBuffer(GL_ARRAY_BUFFER);
+	glUnmapBuffer(GL_ARRAY_BUFFER); */
+
+	glBufferData(GL_ARRAY_BUFFER, sizeof(_quads[0]) * _particleCount, _quads, GL_STREAM_DRAW);
 #endif
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
